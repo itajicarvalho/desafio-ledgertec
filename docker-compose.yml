@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: ledgertec-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ledgertec
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - ledgertec
+
+  backend:
+    build: ./backend
+    container_name: ledgertec-backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/ledgertec
+    ports:
+      - "3001:3001"
+    networks:
+      - ledgertec
+
+  frontend:
+    build: ./frontend
+    container_name: ledgertec-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    networks:
+      - ledgertec
+
+volumes:
+  pgdata:
+
+networks:
+  ledgertec:
