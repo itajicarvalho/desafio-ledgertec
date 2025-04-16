@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
-import "./Login.css";
+import "./Register.css";
 import api from "../../services/api";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   // Função que é chamada quando o formulário é enviado
@@ -12,16 +13,16 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await api.post("/auth/signin", {
-        email: username,
+      const response = await api.post("/auth/signup", {
+        name: name,
+        email: email,
         password: password,
       });
 
-      console.log("Login bem-sucedido:", response.data);
+      console.log("Usuario criado", response.data);
 
-      localStorage.setItem("token", response.data.token);
     } catch (error: any) {
-      console.error("Erro no login:", error.response?.data || error.message);
+      console.error("Erro:", error.response?.data || error.message);
       alert("Usuário ou senha inválidos");
     }
   }
@@ -32,10 +33,20 @@ const Login = () => {
         <div className="input-field">
           <input
             type="text"
+            placeholder="Nome"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <FaUser className="icon" />
+        </div>
+        <div className="input-field">
+          <input
+            type="text"
             placeholder="E-mail"
             required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <FaUser className="icon" />
         </div>
@@ -57,10 +68,10 @@ const Login = () => {
           </label>
           <a href="#">Esqueceu sua senha?</a>
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Criar</button>
         <div className="signup-link">
           <p>
-            Não tem uma conta? <a href="register">Registar</a>{" "}
+            Já possui uma conta? <a href="/">Login</a>{" "}
           </p>
         </div>
       </form>
