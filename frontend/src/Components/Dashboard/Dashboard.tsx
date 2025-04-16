@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 
 interface Documento {
   id: string;
@@ -12,6 +13,8 @@ const Dashboard: React.FC = () => {
   const [busca, setBusca] = useState('');
   const [dataInicio, setDataInicio] = useState('');
   const [dataFim, setDataFim] = useState('');
+
+  const navigate = useNavigate();
 
   const documentos: Documento[] = [
     {
@@ -88,7 +91,7 @@ const Dashboard: React.FC = () => {
               <td className={`status ${doc.status.toLowerCase()}`}>{doc.status}</td>
               <td>
                 <button onClick={() => alert(`Download: ${doc.nome}`)}>⬇️</button>
-                <button onClick={() => alert(`Ver mais: ${doc.id}`)}>🔍 Ver mais</button>
+                <button onClick={() => navigate(`/documento/${doc.id}`)}>🔍 Ver mais</button>
               </td>
             </tr>
           ))}
