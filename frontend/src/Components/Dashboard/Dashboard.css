@@ -1,0 +1,54 @@
+.dashboard-container {
+    padding: 2rem;
+    font-family: sans-serif;
+  }
+  
+  .filtros {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .filtros input[type="text"] {
+    padding: 0.5rem;
+    width: 250px;
+  }
+  
+  .filtros input[type="date"] {
+    padding: 0.3rem;
+  }
+  
+  .novo-doc-btn {
+    padding: 0.5rem 1rem;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .tabela-documentos {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tabela-documentos th,
+  .tabela-documentos td {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .status.preservado {
+    color: green;
+  }
+  
+  .status.falha {
+    color: red;
+  }
+  
+  .status.iniciada {
+    color: orange;
+  }
+  
