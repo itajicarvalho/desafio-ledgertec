@@ -19,6 +19,8 @@ const Login = () => {
         password: password,
       });
 
+      alert("Usuario criado");
+
       console.log("Usuario criado", response.data);
 
     } catch (error: any) {
@@ -59,14 +61,6 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <FaLock className="icon" />
-        </div>
-
-        <div className="recall-forget">
-          <label>
-            <input type="checkbox" />
-            Lembre de mim
-          </label>
-          <a href="#">Esqueceu sua senha?</a>
         </div>
         <button type="submit">Criar</button>
         <div className="signup-link">

@@ -96,8 +96,8 @@ const Dashboard: React.FC = () => {
               <td>{doc.data}</td>
               <td className={`status ${doc.status.toLowerCase()}`}>{doc.status}</td>
               <td>
-                <button onClick={() => alert(`Download: ${doc.nome}`)}>⬇️</button>
-                <button onClick={() => navigate(`/documento/${doc.id}`)}>🔍 Ver mais</button>
+                <button className='download-btn' onClick={() => alert(`Download: ${doc.nome}`)}>⬇️</button>
+                <button className='details-btn' onClick={() => navigate(`/documento/${doc.id}`)}>🔍 Ver mais</button>
               </td>
             </tr>
           ))}

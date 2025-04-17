@@ -1,10 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import './DocumentDetail.css';
 import exemploPdf from '../../assets/curriculo.pdf';
 
 const DocumentDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const documento = {
     id,
@@ -22,7 +23,13 @@ const DocumentDetail = () => {
 
   return (
     <div className="detail-container">
-      <h2>📄 Detalhes do Documento</h2>
+      <div className='head-container'>
+        <h2>📄 Detalhes do Documento</h2>
+
+        <button className="novo-doc-btn" onClick={() => navigate('/dashboard')}>
+          🏠 Dashboard
+        </button>
+      </div>
 
       <table className="tabela-documentos">
         <thead>

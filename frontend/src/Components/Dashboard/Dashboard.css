@@ -1,54 +1,69 @@
 .dashboard-container {
-    padding: 2rem;
-    font-family: sans-serif;
-  }
+  background: rgba(62, 62, 62, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 70px;
+  font-family: sans-serif;
+}
   
-  .filtros {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-  }
+.filtros {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
   
-  .filtros input[type="text"] {
-    padding: 0.5rem;
-    width: 250px;
-  }
+.filtros input[type="text"] {
+  padding: 0.5rem;
+  width: 250px;
+}
   
-  .filtros input[type="date"] {
-    padding: 0.3rem;
-  }
+.filtros input[type="date"] {
+  padding: 0.3rem;
+}
   
-  .novo-doc-btn {
-    padding: 0.5rem 1rem;
-    background-color: #0077cc;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.novo-doc-btn {
+  padding: 0.5rem 1rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
   
-  .tabela-documentos {
-    width: 100%;
-    border-collapse: collapse;
-  }
+.tabela-documentos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-documentos th {
+  color: rgb(120, 120, 120);
+}
   
-  .tabela-documentos th,
-  .tabela-documentos td {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
+.tabela-documentos th,
+.tabela-documentos td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
   
-  .status.preservado {
-    color: green;
-  }
-  
-  .status.falha {
-    color: red;
-  }
-  
-  .status.iniciada {
-    color: orange;
-  }
+.status.preservado {
+  color: green;
+}
+
+.status.falha {
+  color: red;
+}
+
+.status.iniciada {
+  color: orange;
+}
+
+.download-btn,
+.details-btn {
+  font-size: 1rem;
+  margin-left: 10px;
+  padding: 0.5rem 1rem;
+}
   

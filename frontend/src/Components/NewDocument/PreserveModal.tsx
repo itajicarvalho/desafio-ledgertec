@@ -40,14 +40,14 @@ const PreserveModal = ({ onClose }: PreserveModalProps) => {
     console.log('📎 Metadados:', metadados);
 
     alert('Documento preservado!');
-    onClose(); // fecha modal após submissão
+    onClose();
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal-box">
         <h3>📤 Preservar novo documento</h3>
-        <form onSubmit={handleSubmit}>
+        <form className='modal-form' onSubmit={handleSubmit}>
           <label>
             Upload PDF:
             <input type="file" accept="application/pdf" onChange={handleFile} required />

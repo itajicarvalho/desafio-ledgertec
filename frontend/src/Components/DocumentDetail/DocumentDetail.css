@@ -1,69 +1,78 @@
 .detail-container {
-    padding: 2rem;
-    font-family: sans-serif;
-    width: 900px;
-    margin: auto;
-  }
+  padding: 2rem;
+  background: rgba(62, 62, 62, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  font-family: sans-serif;
+  width: 900px;
+  margin-top: 50px;
+}
+
+.head-container {
+  display: flex;
+  justify-content: space-between;
+}
   
-  .doc-info {
-    margin-bottom: 2rem;
-  }
-  
-  .metadados ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .metadados li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .download-btn {
-    margin-top: 1rem;
-    padding: 0.6rem 1.2rem;
-    background-color: #0077cc;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .download-btn:hover {
-    background-color: #005fa3;
-  }
-  
-  .pdf-viewer canvas {
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  
-  .status.preservado {
-    color: green;
-  }
-  .status.falha {
-    color: red;
-  }
-  .status.iniciada {
-    color: orange;
-  }
-  
-  /* Adições para a tabela */
-  .tabela-documentos {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-  }
-  
-  .tabela-documentos th,
-  .tabela-documentos td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .tabela-documentos th {
-    background-color: #f5f5f5;
-    font-weight: bold;
-  }
+.doc-info {
+  margin-bottom: 2rem;
+}
+
+.metadados ul {
+  list-style: none;
+  padding: 0;
+}
+
+.metadados li {
+  margin-bottom: 0.5rem;
+}
+
+.download-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: #005fa3;
+}
+
+.pdf-viewer canvas {
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.status.preservado {
+  color: green;
+}
+.status.falha {
+  color: red;
+}
+.status.iniciada {
+  color: orange;
+}
+
+/* Adições para a tabela */
+.tabela-documentos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.tabela-documentos th,
+.tabela-documentos td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.tabela-documentos th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
   
