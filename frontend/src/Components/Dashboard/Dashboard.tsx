@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
+import PreserveModal from '../NewDocument/PreserveModal';
 
 interface Documento {
   id: string;
@@ -13,6 +14,7 @@ const Dashboard: React.FC = () => {
   const [busca, setBusca] = useState('');
   const [dataInicio, setDataInicio] = useState('');
   const [dataFim, setDataFim] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -69,7 +71,11 @@ const Dashboard: React.FC = () => {
           />
         </label>
 
-        <button className="novo-doc-btn">+ Preservar novo documento</button>
+        <button className="novo-doc-btn" onClick={() => setShowModal(true)}>
+          + Preservar novo documento
+        </button>
+        {showModal && <PreserveModal onClose={() => setShowModal(false)} />}
+
       </div>
 
       <table className="tabela-documentos">
