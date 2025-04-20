@@ -20,3 +20,13 @@ model User {
   email    String @unique
   password String
 }
+
+model Document {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  author    String
+  category  String
+  type      String
+  size      String
+  createdAt DateTime @default(now())
+}
