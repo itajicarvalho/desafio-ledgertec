@@ -6,6 +6,29 @@
   padding: 70px;
   font-family: sans-serif;
 }
+
+.top-btns {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.logout-btn {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.logout-btn:hover {
+  background-color: #c9302c;
+}
   
 .filtros {
   display: flex;
@@ -65,5 +88,6 @@
   font-size: 1rem;
   margin-left: 10px;
   padding: 0.5rem 1rem;
+  cursor: pointer;
 }
   

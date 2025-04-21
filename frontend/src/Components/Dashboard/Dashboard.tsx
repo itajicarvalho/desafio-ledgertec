@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
+import { FaSignOutAlt } from 'react-icons/fa';
+
+import './Dashboard.css';
 import PreserveModal from '../PreserveModal/PreserveModal';
 import { downloadDocument, getDocuments } from '../../services/api';
 
@@ -42,6 +44,11 @@ const Dashboard: React.FC = () => {
     return dentroDoIntervalo && contemBusca;
   });
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   return (
     <div className="dashboard-container">
       <h1>🏠 Dashboard</h1>
@@ -72,9 +79,14 @@ const Dashboard: React.FC = () => {
           />
         </label>
 
-        <button className="novo-doc-btn" onClick={() => setShowModal(true)}>
-          + Preservar novo documento
-        </button>
+        <div className='top-btns'>
+          <button className="novo-doc-btn" onClick={() => setShowModal(true)}>
+            + Preservar novo documento
+          </button>
+          <button className="logout-btn" onClick={handleLogout}>
+            <FaSignOutAlt /> Logout
+          </button>
+        </div>
         {showModal && <PreserveModal onClose={() => setShowModal(false)} />}
 
       </div>
