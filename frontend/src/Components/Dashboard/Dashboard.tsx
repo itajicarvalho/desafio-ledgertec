@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
-import PreserveModal from '../NewDocument/PreserveModal';
+import PreserveModal from '../PreserveModal/PreserveModal';
+import { downloadDocument, getDocuments } from '../../services/api';
 
-interface Documento {
+interface Document {
   id: string;
   nome: string;
   data: string;
@@ -15,23 +16,23 @@ const Dashboard: React.FC = () => {
   const [dataInicio, setDataInicio] = useState('');
   const [dataFim, setDataFim] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [documentos, setDocumentos] = useState<Document[]>([]);
 
   const navigate = useNavigate();
 
-  const documentos: Documento[] = [
-    {
-      id: '123',
-      nome: 'relatorio-final.pdf',
-      data: '2024-03-01',
-      status: 'Preservado',
-    },
-    {
-      id: '456',
-      nome: 'analise.docx',
-      data: '2024-04-10',
-      status: 'Iniciada',
-    },
-  ];
+  useEffect(() => {
+    getDocuments().then(
+      (data) => {
+        const adaptados = data.map((doc: any) => ({
+          id: doc.id.toString(),
+          nome: doc.filename,
+          data: new Date(doc.createdAt).toISOString().split('T')[0],
+          status: 'Preservado',
+        }));
+        setDocumentos(adaptados);
+      }
+    ).catch(console.error);
+  }, []);
 
   const filtrarDocumentos = documentos.filter((doc) => {
     const dentroDoIntervalo =
@@ -96,8 +97,9 @@ const Dashboard: React.FC = () => {
               <td>{doc.data}</td>
               <td className={`status ${doc.status.toLowerCase()}`}>{doc.status}</td>
               <td>
-                <button className='download-btn' onClick={() => alert(`Download: ${doc.nome}`)}>⬇️</button>
-                <button className='details-btn' onClick={() => navigate(`/documento/${doc.id}`)}>🔍 Ver mais</button>
+                <button className='download-btn' onClick={() => downloadDocument(doc.nome)}>⬇️</button>
+
+                <button className='details-btn' onClick={() => navigate(`/document/${doc.nome}`)}>🔍 Ver mais</button>
               </td>
             </tr>
           ))}

@@ -1,25 +1,43 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import './DocumentDetail.css';
-import exemploPdf from '../../assets/curriculo.pdf';
+// import exemploPdf from '../../assets/curriculo.pdf';
+import { downloadDocument, getDocumentByFilename } from '../../services/api';
+import { useEffect, useState } from 'react';
 
 const DocumentDetail = () => {
-  const { id } = useParams();
+  const { filename } = useParams();
   const navigate = useNavigate();
 
-  const documento = {
-    id,
-    nome: 'exemplo.pdf',
-    data: '2024-03-25',
-    status: 'Preservado',
-    metadados: {
-      autor: 'João Silva',
-      categoria: 'Relatório',
-      tipo: 'PDF',
-      tamanho: '1.2MB',
-    },
-    arquivo: exemploPdf,
-  };
+  const [document, setDocument] = useState<any>();
+
+  useEffect(() => {
+    const fetchDocument = async () => {
+      try {
+        const data = await getDocumentByFilename(filename as string);
+        const formated = {
+          id: data.id,
+          name: data.filename,
+          data: data.createdAt,
+          status: 'Preservado',
+          metadados: {
+            autor: data.author,
+            categoria: data.category,
+            tipo: data.type,
+            tamanho: data.size,
+          },
+          arquivo: `http://localhost:3002/uploads/${data.filename}`,
+        };
+        setDocument(formated);
+      } catch (error) {
+        console.error('Erro ao buscar documento:', error);
+      }
+    };
+
+    if (filename) fetchDocument();
+  }, [filename]);
+
+  if (!document) return <div>🔄 Carregando documento...</div>;
 
   return (
     <div className="detail-container">
@@ -41,21 +59,21 @@ const DocumentDetail = () => {
         <tbody>
           <tr>
             <td><strong>ID</strong></td>
-            <td>{documento.id}</td>
+            <td>{document.id}</td>
           </tr>
           <tr>
             <td><strong>Nome</strong></td>
-            <td>{documento.nome}</td>
+            <td>{document.name}</td>
           </tr>
           <tr>
             <td><strong>Data</strong></td>
-            <td>{documento.data}</td>
+            <td>{document.data}</td>
           </tr>
           <tr>
             <td><strong>Status</strong></td>
-            <td className={`status ${documento.status.toLowerCase()}`}>{documento.status}</td>
+            <td className={`status ${document.status.toLowerCase()}`}>{document.status}</td>
           </tr>
-          {Object.entries(documento.metadados).map(([key, value]) => (
+          {Object.entries(document.metadados).map(([key, value]) => (
             <tr key={key}>
               <td><strong>{key}</strong></td>
               <td>{value}</td>
@@ -65,14 +83,14 @@ const DocumentDetail = () => {
       </table>
 
       <div style={{ marginTop: '1rem' }}>
-        <a href={documento.arquivo} download>
-          <button className="download-btn">⬇️ Download do Documento</button>
+        <a href={document.arquivo} download>
+          <button className="download-btn" onClick={() => downloadDocument(document.name)}>⬇️ Download do Documento</button>
         </a>
       </div>
 
       <div className="pdf-viewer" style={{ height: '80vh', marginTop: '2rem' }}>
         <iframe
-          src={documento.arquivo}
+          src={document.arquivo}
           width="100%"
           height="100%"
           title="Visualização do Documento"
