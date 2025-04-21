@@ -3,7 +3,7 @@ import { FaUser, FaLock } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
 import "./Login.css";
-import api from "../../services/api";
+import { signIn } from "../../services/api";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,25 +11,19 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // Função que é chamada quando o formulário é enviado
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
-      const response = await api.post("/auth/signin", {
-        email: username,
-        password: password,
-      });
-
-      console.log("Login bem-sucedido:", response.data);
-
-      localStorage.setItem("token", response.data.token);
+      const response = await signIn(username, password);
+  
+      localStorage.setItem("token", response.token);
       navigate('/dashboard');
     } catch (error: any) {
       console.error("Erro no login:", error.response?.data || error.message);
       alert("Usuário ou senha inválidos");
     }
-  }
+  };
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>

@@ -1,33 +1,28 @@
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
+
 import "./Register.css";
-import api from "../../services/api";
+import { signUp } from "../../services/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  // Função que é chamada quando o formulário é enviado
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
-      const response = await api.post("/auth/signup", {
-        name: name,
-        email: email,
-        password: password,
-      });
-
-      alert("Usuario criado");
-
-      console.log("Usuario criado", response.data);
-
+      const response = await signUp(name, email, password);
+  
+      alert("Usuário criado com sucesso!");
+      console.log("Usuario criado", response);
     } catch (error: any) {
       console.error("Erro:", error.response?.data || error.message);
-      alert("Usuário ou senha inválidos");
+      alert(`Error: ${error.response?.data.message}`);
     }
-  }
+  };
+  
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
