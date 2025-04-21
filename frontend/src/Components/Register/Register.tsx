@@ -4,29 +4,36 @@ import { FaUser, FaLock } from "react-icons/fa";
 import "./Register.css";
 import { signUp } from "../../services/api";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
+    if (password !== confirmPassword) {
+      alert("As senhas não coincidem.");
+      return;
+    }
+
     try {
       const response = await signUp(name, email, password);
-  
+
       alert("Usuário criado com sucesso!");
-      console.log("Usuario criado", response);
+      console.log("Usuário criado", response);
     } catch (error: any) {
       console.error("Erro:", error.response?.data || error.message);
-      alert(`Error: ${error.response?.data.message}`);
+      alert(`Erro: ${error.response?.data.message}`);
     }
   };
-  
+
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
-        <h1>Acesse o sistema</h1>
+        <h1>Crie sua conta</h1>
+
         <div className="input-field">
           <input
             type="text"
@@ -37,9 +44,10 @@ const Login = () => {
           />
           <FaUser className="icon" />
         </div>
+
         <div className="input-field">
           <input
-            type="text"
+            type="email"
             placeholder="E-mail"
             required
             value={email}
@@ -47,6 +55,7 @@ const Login = () => {
           />
           <FaUser className="icon" />
         </div>
+
         <div className="input-field">
           <input
             type="password"
@@ -57,15 +66,28 @@ const Login = () => {
           />
           <FaLock className="icon" />
         </div>
+
+        <div className="input-field">
+          <input
+            type="password"
+            placeholder="Confirmar Senha"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <FaLock className="icon" />
+        </div>
+
         <button type="submit">Criar</button>
+
         <div className="signup-link">
           <p>
-            Já possui uma conta? <a href="/">Login</a>{" "}
+            Já possui uma conta? <a href="/">Login</a>
           </p>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Register;
