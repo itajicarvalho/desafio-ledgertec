@@ -6,6 +6,7 @@ import {
   Res,
   Body,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
   NotFoundException,
 } from '@nestjs/common';
@@ -14,11 +15,13 @@ import { diskStorage } from 'multer';
 import { UploadService } from './upload.service';
 import { Response } from 'express';
 import * as path from 'path';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('documents')
 export class UploadController {
   constructor(private readonly uploadService: UploadService) { }
 
+  @UseGuards(AuthGuard)
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
@@ -33,11 +36,13 @@ export class UploadController {
     return this.uploadService.processUpload(file, body);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   async getAllDocuments() {
     return this.uploadService.findAll();
   }
 
+  @UseGuards(AuthGuard)
   @Get(':filename')
   async getMetadataWithDownloadUrl(@Param('filename') filename: string) {
     const doc = await this.uploadService.findByFilename(filename);
@@ -52,6 +57,7 @@ export class UploadController {
     };
   }
 
+  @UseGuards(AuthGuard)
   @Get('download/:filename')
   async download(@Param('filename') filename: string, @Res() res: Response) {
     const filePath = path.resolve(`./uploads/${filename}`);

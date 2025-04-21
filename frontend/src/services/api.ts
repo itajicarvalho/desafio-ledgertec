@@ -4,6 +4,26 @@ const api = axios.create({
   baseURL: 'http://localhost:3002',
 });
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export const getDocuments = async () => {
   const response = await api.get('/documents');
   return response.data;
@@ -15,17 +35,7 @@ export const getDocumentByFilename = async (filename: string) => {
 };
 
 export const downloadDocument = async (filename: string) => {
-  const response = await api.get(`/documents/download/${filename}`, {
-    responseType: 'blob',
-  });
-
-  const url = window.URL.createObjectURL(new Blob([response.data]));
-  const link = document.createElement('a');
-  link.href = url;
-  link.setAttribute('download', filename);
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
+  await api.get(`/documents/download/${filename}`);
 };
 
 export const uploadDocument = async (file: File, metadata: Record<string, string>) => {
@@ -36,6 +46,7 @@ export const uploadDocument = async (file: File, metadata: Record<string, string
   });
 
   const response = await api.post('/documents/upload', formData);
+
   return response.data;
 };
 
