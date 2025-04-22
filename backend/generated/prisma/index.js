@@ -133,7 +133,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\itaji\\Documents\\Projetos\\desafio-ledgertec\\backend\\generated\\prisma",
+      "value": "/home/vboxuser/Documents/Projetos/desafio-ledgertec/backend/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -142,17 +142,20 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\itaji\\Documents\\Projetos\\desafio-ledgertec\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/vboxuser/Documents/Projetos/desafio-ledgertec/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.6.0",
@@ -161,16 +164,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:postgres@localhost:5432/ledgertec?schema=public"
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  name     String\n  email    String @unique\n  password String\n}\n\nmodel Document {\n  id        Int      @id @default(autoincrement())\n  filename  String   @unique\n  author    String\n  category  String\n  type      String\n  size      String\n  createdAt DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "0a762f5c6e6900b5b8b1750d90b04fd06f7932188f5423a1dae6110139aa5bb7",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n  output        = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  name     String\n  email    String @unique\n  password String\n}\n\nmodel Document {\n  id        Int      @id @default(autoincrement())\n  filename  String   @unique\n  author    String\n  category  String\n  type      String\n  size      String\n  createdAt DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "a77dff11424af5c1b43e55c13688d33d80ced8e569c40f5eccc45ce889739e6f",
   "copyEngine": true
 }
 
@@ -209,8 +213,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
+path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")
