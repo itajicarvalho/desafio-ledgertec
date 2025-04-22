@@ -24,6 +24,7 @@ services:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/ledgertec
     ports:
       - "3001:3001"
+    command: sh -c "npx prisma migrate deploy && npm start"
     networks:
       - ledgertec
 
