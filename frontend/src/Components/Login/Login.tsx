@@ -48,13 +48,6 @@ const Login = () => {
           />
           <FaLock className="icon" />
         </div>
-
-        <div className="recall-forget">
-          <label>
-            <input type="checkbox" />
-            Lembre de mim
-          </label>
-        </div>
         <button type="submit">Login</button>
         <div className="signup-link">
           <p>
