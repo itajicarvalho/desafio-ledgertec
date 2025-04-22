@@ -38,7 +38,22 @@ export const getDocumentByFilename = async (filename: string) => {
 };
 
 export const downloadDocument = async (filename: string) => {
-  await api.get(`/documents/download/${filename}`);
+  try {
+    const response = await api.get(`/documents/download/${filename}`, {
+      responseType: 'blob',
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Erro ao baixar o documento:', error);
+  }
 };
 
 export const uploadDocument = async (file: File, metadata: Record<string, string>) => {

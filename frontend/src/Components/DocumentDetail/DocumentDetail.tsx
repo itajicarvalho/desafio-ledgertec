@@ -83,9 +83,7 @@ const DocumentDetail = () => {
       </table>
 
       <div style={{ marginTop: '1rem' }}>
-        <a href={document.arquivo} download>
-          <button className="download-btn" onClick={() => downloadDocument(document.name)}>⬇️ Download do Documento</button>
-        </a>
+        <button className="download-btn" onClick={() => downloadDocument(document.name)}>⬇️ Download do Documento</button>
       </div>
 
       <div className="pdf-viewer" style={{ height: '80vh', marginTop: '2rem' }}>
