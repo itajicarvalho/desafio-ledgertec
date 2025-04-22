@@ -1,13 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import './DocumentDetail.css';
-// import exemploPdf from '../../assets/curriculo.pdf';
 import { downloadDocument, getDocumentByFilename } from '../../services/api';
 import { useEffect, useState } from 'react';
 
 const DocumentDetail = () => {
   const { filename } = useParams();
   const navigate = useNavigate();
+  const baseURL = import.meta.env.VITE_API_URL;
 
   const [document, setDocument] = useState<any>();
 
@@ -26,7 +26,7 @@ const DocumentDetail = () => {
             tipo: data.type,
             tamanho: data.size,
           },
-          arquivo: `http://localhost:3002/uploads/${data.filename}`,
+          arquivo: `${baseURL}/uploads/${data.filename}`,
         };
         setDocument(formated);
       } catch (error) {
