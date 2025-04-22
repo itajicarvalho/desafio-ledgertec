@@ -14,17 +14,6 @@ Este projeto é uma aplicação fullstack para gestão e preservação de docume
 - PostgreSQL
 - Multer (upload de arquivos)
 
-## 📁 Estrutura do Projeto
-
-```
-/desafio-ledgertec
-├── frontend/        # Aplicação React
-├── backend/         # API NestJS + Prisma
-├── docker-compose.yml
-├── README.md
-└── .env.example
-```
-
 ## 🔐 Autenticação
 
 - Sistema de login com e-mail e senha
@@ -33,7 +22,7 @@ Este projeto é uma aplicação fullstack para gestão e preservação de docume
 ## 🏠 Tela Inicial (Dashboard)
 
 A dashboard exibe uma tabela com os documentos preservados, permitindo:
-- Buscar por nome/metadado
+- Buscar por nome
 - Filtrar por intervalo de datas
 - Baixar documentos diretamente
 - Visualizar detalhes
@@ -53,8 +42,8 @@ Via modal, o usuário pode:
 ## 📥 Download de Documento
 
 - Possível via botão direto na dashboard ou na tela de detalhes
-- Endpoint GET `/documents/:filename` retorna o PDF
-- Exemplo: `GET /documents/1713376450000-meuarquivo.pdf`
+- Endpoint GET `/documents/download/:filename` retorna o PDF
+- Exemplo: `GET /documents/download/1713376450000-meuarquivo.pdf`
 
 ## 📄 Modelo da Tabela de Documentos
 
@@ -78,17 +67,25 @@ model Document {
 # Subir aplicação
 docker-compose up --build
 
-# Criar base de dados (se necessário)
-npx prisma migrate dev --name init
+# Excluir containers da aplicação
+docker-compose down
+
 ```
 
 ## 🛠 Variáveis de Ambiente
 
-Veja `.env.example` para as configurações necessárias:
+Veja `.env.example` para as configurações necessárias no front-end:
 
 ```env
-DATABASE_URL=postgresql://user:password@localhost:5432/database_name
+VITE_API_URL=http://localhost:3000
+```
+
+Veja `.env.example` para as configurações necessárias no back-end:
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/ledgertec?schema=public"
 PORT=3000
+FRONT_URL=http://localhost:5173
 ```
 
 ## 📦 Considerações Finais
