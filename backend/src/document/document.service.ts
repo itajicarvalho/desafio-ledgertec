@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
-export class UploadService {
+export class DocumentService {
   constructor(private prisma: PrismaService) {}
 
   async processUpload(file: Express.Multer.File, body: any) {

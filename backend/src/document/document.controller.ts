@@ -12,14 +12,14 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { UploadService } from './upload.service';
+import { DocumentService } from './document.service';
 import { Response } from 'express';
 import * as path from 'path';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('documents')
-export class UploadController {
-  constructor(private readonly uploadService: UploadService) { }
+export class DocumentController {
+  constructor(private readonly uploadService: DocumentService) { }
 
   @UseGuards(AuthGuard)
   @Post('upload')
@@ -51,10 +51,7 @@ export class UploadController {
       throw new NotFoundException('Documento não encontrado');
     }
 
-    return {
-      ...doc,
-      downloadUrl: `http://localhost:3001/documents/download/${doc.filename}`,
-    };
+    return doc;
   }
 
   @UseGuards(AuthGuard)
